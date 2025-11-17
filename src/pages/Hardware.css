@@ -424,3 +424,160 @@
   cursor: not-allowed;
 }
 
+/* 디바이스 등록 모달 */
+.device-register-modal {
+  max-width: 700px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.device-register-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.device-register-modal .modal-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.device-register-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.device-register-instruction {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.mode-switch-section {
+  display: flex;
+  justify-content: center;
+}
+
+.switch-mode-btn {
+  width: 100%;
+  padding: 0.75rem;
+}
+
+.scan-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.scan-instruction {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.scan-device-btn {
+  width: 100%;
+  padding: 0.75rem;
+}
+
+.scanned-devices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.scanned-devices-list h4 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.scanned-device-item {
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.scanned-device-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.scanned-device-mac {
+  font-weight: 500;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.scanned-device-name-display {
+  font-size: 0.85rem;
+  color: #27ae60;
+  font-weight: 500;
+}
+
+.scanned-device-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.blink-led-btn,
+.start-register-btn {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.device-name-input-section {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  min-width: 300px;
+}
+
+.device-name-input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.cancel-register-btn {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.final-register-section {
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+}
+
+.final-register-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+

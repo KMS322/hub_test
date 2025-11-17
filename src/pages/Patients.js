@@ -8,7 +8,7 @@ import './Patients.css'
 function Patients() {
   const [patients] = useState(dummyPatients)
   const [devices] = useState(dummyDevices)
-  const [filter, setFilter] = useState('all') // all, admitted, discharged
+  const [filter, setFilter] = useState('admitted') // all, admitted, discharged
   const [showAddModal, setShowAddModal] = useState(false)
   const [alertModal, setAlertModal] = useState({ isOpen: false, title: '', message: '' })
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, title: '', message: '', onConfirm: null })

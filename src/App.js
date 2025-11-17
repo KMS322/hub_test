@@ -7,6 +7,7 @@ import Patients from './pages/Patients'
 import Records from './pages/Records'
 import Profile from './pages/Profile'
 import Monitoring from './pages/Monitoring'
+import Guide from './pages/Guide'
 import './App.css'
 
 function App() {
@@ -42,6 +43,10 @@ function App() {
           <Route 
             path="/monitoring/:patientId" 
             element={isLoggedIn ? <Monitoring /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/guide" 
+            element={<Guide />} 
           />
           <Route path="/" element={<Navigate to="/dashboard" />} />
         </Routes>

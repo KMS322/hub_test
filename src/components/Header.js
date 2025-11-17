@@ -52,7 +52,7 @@ function Header() {
             to="/records" 
             className={`nav-link ${isActive('/records') ? 'active' : ''}`}
           >
-            기록 보기
+            기록 관리
           </Link>
         </nav>
         <div className="header-actions">

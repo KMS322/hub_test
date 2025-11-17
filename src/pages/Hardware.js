@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Header from '../components/Header'
 import { dummyHubs, dummyDevices, dummyDashboardStats } from '../data/dummyData'
 import AlertModal from '../components/AlertModal'
@@ -6,8 +7,15 @@ import ConfirmModal from '../components/ConfirmModal'
 import './Hardware.css'
 
 function Hardware() {
-  const [activeTab, setActiveTab] = useState('device')
-  const [showGuide, setShowGuide] = useState(false)
+  const [searchParams] = useSearchParams()
+  const tabParam = searchParams.get('tab')
+  const [activeTab, setActiveTab] = useState(tabParam || 'device')
+
+  useEffect(() => {
+    if (tabParam) {
+      setActiveTab(tabParam)
+    }
+  }, [tabParam])
   const [hubs] = useState(dummyHubs)
   const [devices] = useState(dummyDevices)
   const [alertModal, setAlertModal] = useState({ isOpen: false, title: '', message: '' })
@@ -352,22 +360,10 @@ function Hardware() {
         <section className="guide-section">
           <button 
             className="guide-btn"
-            onClick={() => setShowGuide(!showGuide)}
+            onClick={() => window.open('/guide', '_blank', 'width=1000,height=800')}
           >
-            {showGuide ? '사용 가이드 숨기기' : '사용 가이드 보기'}
+            사용 가이드 보기
           </button>
-          {showGuide && (
-            <div className="guide-content">
-              <h3>시스템 사용 가이드</h3>
-              <ol>
-                <li>하드웨어 관리에서 허브와 디바이스를 등록하세요.</li>
-                <li>환자 관리에서 입원한 환자 정보를 등록하세요.</li>
-                <li>디바이스와 환자를 연결하세요.</li>
-                <li>대시보드에서 실시간 모니터링을 확인하세요.</li>
-                <li>기록 보기에서 과거 데이터를 조회하세요.</li>
-              </ol>
-            </div>
-          )}
         </section>
       </div>
 

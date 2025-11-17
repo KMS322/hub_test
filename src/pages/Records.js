@@ -1,16 +1,57 @@
 import { useState } from 'react'
 import Header from '../components/Header'
-import { dummyRecords } from '../data/dummyData'
+import { dummyRecords, dummyPatients, dummyDevices } from '../data/dummyData'
 import './Records.css'
 
 function Records() {
   const [records] = useState(dummyRecords)
   const [sortBy, setSortBy] = useState('date') // date, patient, device
-  const [sortOrder, setSortOrder] = useState('desc') // asc, desc
   const [selectedRecords, setSelectedRecords] = useState([])
+  const [selectedDate, setSelectedDate] = useState('')
+  const [selectedPatient, setSelectedPatient] = useState('')
+  const [patientSearch, setPatientSearch] = useState('')
+  const [selectedDevice, setSelectedDevice] = useState('')
 
-  // 정렬된 레코드
-  const sortedRecords = [...records].sort((a, b) => {
+  // 필터링 및 정렬된 레코드
+  let filteredRecords = [...records]
+
+  // 날짜 필터
+  if (sortBy === 'date' && selectedDate) {
+    filteredRecords = filteredRecords.filter(record => {
+      const recordDate = record.createdAt.split(' ')[0]
+      return recordDate === selectedDate
+    })
+  }
+
+  // 환자 필터
+  if (sortBy === 'patient') {
+    if (selectedPatient) {
+      const patient = dummyPatients.find(p => p.id === selectedPatient)
+      if (patient) {
+        filteredRecords = filteredRecords.filter(record => 
+          record.patientName === patient.name
+        )
+      }
+    }
+    if (patientSearch) {
+      filteredRecords = filteredRecords.filter(record =>
+        record.patientName.toLowerCase().includes(patientSearch.toLowerCase())
+      )
+    }
+  }
+
+  // 디바이스 필터
+  if (sortBy === 'device' && selectedDevice) {
+    const device = dummyDevices.find(d => d.id === selectedDevice)
+    if (device) {
+      filteredRecords = filteredRecords.filter(record => 
+        record.deviceName === device.name
+      )
+    }
+  }
+
+  // 정렬 (최신순으로 고정)
+  const sortedRecords = filteredRecords.sort((a, b) => {
     let comparison = 0
     if (sortBy === 'date') {
       comparison = new Date(a.createdAt) - new Date(b.createdAt)
@@ -19,7 +60,7 @@ function Records() {
     } else if (sortBy === 'device') {
       comparison = a.deviceName.localeCompare(b.deviceName)
     }
-    return sortOrder === 'asc' ? comparison : -comparison
+    return -comparison // 최신순 (desc)
   })
 
   const handleSelectAll = (e) => {
@@ -68,15 +109,81 @@ function Records() {
         <div className="records-controls">
           <div className="sort-controls">
             <label>정렬 기준:</label>
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+            <select value={sortBy} onChange={(e) => {
+              setSortBy(e.target.value)
+              // 정렬 기준 변경 시 필터 초기화
+              setSelectedDate('')
+              setSelectedPatient('')
+              setPatientSearch('')
+              setSelectedDevice('')
+            }}>
               <option value="date">날짜</option>
               <option value="patient">환자</option>
               <option value="device">디바이스</option>
             </select>
-            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-              <option value="desc">최신순</option>
-              <option value="asc">오래된순</option>
-            </select>
+            
+            {/* 날짜 선택 시 달력 표시 */}
+            {sortBy === 'date' && (
+              <div className="filter-control">
+                <label>날짜 선택:</label>
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                  className="date-input"
+                />
+              </div>
+            )}
+
+            {/* 환자 선택 시 환자 select와 검색창 표시 */}
+            {sortBy === 'patient' && (
+              <>
+                <div className="filter-control">
+                  <label>환자 선택:</label>
+                  <select 
+                    value={selectedPatient} 
+                    onChange={(e) => setSelectedPatient(e.target.value)}
+                    className="patient-select"
+                  >
+                    <option value="">전체</option>
+                    {dummyPatients.map(patient => (
+                      <option key={patient.id} value={patient.id}>
+                        {patient.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="filter-control">
+                  <label>검색:</label>
+                  <input
+                    type="text"
+                    value={patientSearch}
+                    onChange={(e) => setPatientSearch(e.target.value)}
+                    placeholder="환자명 검색"
+                    className="search-input"
+                  />
+                </div>
+              </>
+            )}
+
+            {/* 디바이스 선택 시 디바이스 select 표시 */}
+            {sortBy === 'device' && (
+              <div className="filter-control">
+                <label>디바이스 선택:</label>
+                <select 
+                  value={selectedDevice} 
+                  onChange={(e) => setSelectedDevice(e.target.value)}
+                  className="device-select"
+                >
+                  <option value="">전체</option>
+                  {dummyDevices.map(device => (
+                    <option key={device.id} value={device.id}>
+                      {device.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
         </div>
 

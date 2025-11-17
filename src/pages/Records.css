@@ -28,6 +28,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .sort-controls label {
@@ -40,6 +41,42 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.filter-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-control label {
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+}
+
+.date-input,
+.patient-select,
+.device-select,
+.search-input {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.date-input {
+  cursor: pointer;
+}
+
+.search-input {
+  min-width: 200px;
+}
+
+.patient-select,
+.device-select {
+  min-width: 150px;
   cursor: pointer;
 }
 
